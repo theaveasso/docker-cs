@@ -8,6 +8,40 @@
 - **What is a container?**
 ### Docker vs Virtual Machine
 - **Difference between Docker and Virtual Machine**
+- ### How to install docker-desktop on linux.ubuntu22.04
+original post from [docker documentation](https://docker-docs.netlify.app/install/linux/docker-ce/ubuntu/#install-using-the-repository)
+1. update the apt package index:
+```shell
+sudo apt-get update
+```
+2. install packages to allow apt to use a repository over HTTPS
+```shell
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+```
+3. adding docker's official GPG key
+```shell
+sudo mkdir -p /etc/apt/keyrings
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+4. setup the repository
+```shell
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+5. list of available in the repo
+```shell
+apt-cache madison docker-ce
+```
+6. install docker engine
+```shell
+sudo apt-get update
+sudo apt install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io docker-compose-plugin
+```
 ### Docker Commandline Interface CLI
 #### Container management Commands
 - build an image
